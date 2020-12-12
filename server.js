@@ -1,6 +1,7 @@
 // Dependencies
 // =============================================================
 var express = require("express");
+var bodyParser = require("body-parser");
 var path = require("path");
 
 // Sets up the Express App
@@ -12,8 +13,13 @@ var PORT = 3000;
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// Star Wars Characters (DATA)
-// =============================================================
+app.use(express.static("public"));
+
+app.get("/home", (req, res) => {
+  res.sendFile(path.join(__dirname, "./public/home.html"));
+})
+
+require("./routing/html-routes")(app);
 
 // Starts the server to begin listening
 // =============================================================
